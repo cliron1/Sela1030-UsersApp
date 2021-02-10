@@ -1,0 +1,16 @@
+﻿@model User
+@{
+	ViewData["Title"] = "Users details";
+}
+
+<form method="post" asp-controller="Users" asp-action="Save">
+	<input type="hidden" asp-for="Id" />
+
+	<div>
+		<label asp-for="Name" style="width: 120px;">Name:</label>
+		<input asp-for="Name" placeholder="Enter your name" />
+	</div>
+	<div>
+		<button type="submit">Submit</button>
+	</div>
+</form>

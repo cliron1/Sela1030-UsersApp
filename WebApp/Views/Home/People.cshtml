@@ -1,0 +1,37 @@
+﻿@model List<Person>
+@{
+	var pp = new Person { Name = "Shani", Age = 22 };
+	Model.Add(pp);
+}
+
+<table border="1">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Adule</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var p in Model) {
+			<tr>
+				<td>@p.Name</td>
+				<td>@p.Age</td>
+				<td>@p.IsAdult()</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
+<hr style="background: blue;" />
+
+<h1>Adults</h1>
+@foreach(var p in @Model.Where(x => x.IsAdult())) {
+	<p>@p.Name is @p.Age years old </p>
+}
+
+<h1>Non Adults</h1>
+@foreach(var p in @Model.Where(x => !x.IsAdult())) {
+	<p>@p.Name is @p.Age years old </p>
+}

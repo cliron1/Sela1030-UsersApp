@@ -1,0 +1,14 @@
+﻿@model User
+@{
+	ViewData["Title"] = "Add new User";
+}
+
+<form method="post">
+	<div>
+		<label asp-for="Name" style="width: 120px;">Name:</label>
+		<input asp-for="Name" placeholder="Enter your name" />
+	</div>
+	<div>
+		<button type="submit">Submit</button>
+	</div>
+</form>
