@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UsersApp.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
+using UsersApp.Services;
+using WebApp.Services;
 
 namespace UsersApp {
 	public class Startup {
@@ -22,9 +20,7 @@ namespace UsersApp {
 		public IConfiguration Configuration { get; }
 
 		public void ConfigureServices(IServiceCollection services) {
-			services.AddDbContext<MyContext>(opts =>
-				opts.UseSqlServer(Configuration.GetConnectionString("Default"))
-			);
+			services.AddDb(Configuration);
 
 			//services.AddSingleton<IUsersService, UsersServiceMemory>();
 			services.AddScoped<IUsersService, UsersServiceSql>();
@@ -71,9 +67,11 @@ namespace UsersApp {
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {
-				endpoints.MapControllerRoute(
-					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+				endpoints.MapControllers();
+
+				//endpoints.MapControllerRoute(
+				//	name: "default",
+				//	pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
 		}
 	}

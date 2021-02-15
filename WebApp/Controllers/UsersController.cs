@@ -3,14 +3,16 @@ using Entities;
 using UsersApp.Services;
 
 namespace UsersApp.Controllers {
-	public class UsersController: Controller {
+	public class UsersController : Controller {
 		private IUsersService service;
 
 		public UsersController(IUsersService service) {
 			this.service = service;
 		}
 
-		public IActionResult Index() => View(service.GetAll());
+		public IActionResult Index() {
+			return View(service.GetAll());
+		}
 
 		public IActionResult Details(int id) {
 			var model = service.GetById(id);

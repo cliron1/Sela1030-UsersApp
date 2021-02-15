@@ -2,7 +2,7 @@
 @{
 	ViewData["Title"] = "Contact";
 }
-<form method="post">
+<form method="post" asp-controller="Home" asp-action="SignupSubmit">
 	<div>
 		<label asp-for="FirstName" style="width: 120px;">First Name:</label>
 		<input asp-for="FirstName" placeholder="First name" />
