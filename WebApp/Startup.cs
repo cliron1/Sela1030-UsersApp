@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using UsersApp.Services;
+using WebApp.DI;
+using WebApp.Middlewares;
 using WebApp.Services;
 
 namespace UsersApp {
@@ -25,6 +25,10 @@ namespace UsersApp {
 			//services.AddSingleton<IUsersService, UsersServiceMemory>();
 			services.AddScoped<IUsersService, UsersServiceSql>();
 
+			services.AddSingleton<IOperationSingleton, Operation>();
+			services.AddScoped<IOperationScoped, Operation>();
+			services.AddTransient<IOperationTransient, Operation>();
+
 			services.AddControllersWithViews();
 		}
 
@@ -37,30 +41,9 @@ namespace UsersApp {
 
 			app.UseStaticFiles();
 
-			app.Use(async (context, next) => {
-				var watch = Stopwatch.StartNew();
-
-				context.Response.OnStarting(state => {
-					var httpContext = (HttpContext)state;
-					watch.Stop();
-					httpContext.Response.Headers.Add("Duration", new[] { $"{watch.ElapsedMilliseconds} ms" });
-					return Task.CompletedTask;
-				}, context);
-
-				await next.Invoke();
-
-				//watch.Stop();
-				//context.Response.Headers.Add("duration", $"{watch.ElapsedMilliseconds} ms");
-
-			});
-
-			//app.Run(async context => {
-			//	Console.WriteLine("before");
-
-			//	await context.Response.WriteAsync("Hello, World!");
-
-			//	Console.WriteLine("after");
-			//});
+			app.UseMiddleware<DurationMiddleware>();
+			//app.UseMiddleware<DITestsMiddleware>();
+			app.UseDITests();
 
 			app.UseRouting();
 
