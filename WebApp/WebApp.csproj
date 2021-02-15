@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>Sela1030-UsersApp</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
