@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System.IO;
 using UsersApp.Services;
 using WebApp.DI;
 using WebApp.Middlewares;
@@ -40,6 +42,12 @@ namespace UsersApp {
 			}
 
 			app.UseStaticFiles();
+
+			app.UseStaticFiles(new StaticFileOptions {
+				FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules")
+			),
+				RequestPath = "/node_modules"
+			});
 
 			app.UseMiddleware<DurationMiddleware>();
 			//app.UseMiddleware<DITestsMiddleware>();
