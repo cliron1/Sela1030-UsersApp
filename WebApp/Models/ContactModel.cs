@@ -5,10 +5,11 @@ namespace UsersApp.Models {
 		[Required(ErrorMessage ="שדה חובה")]
 		public string FirstName { get; set; }
 
-		[Required(ErrorMessage ="שדה חובה")]
+		[Required(ErrorMessage ="requierd")]
 		public string LastName { get; set; }
 
-		[Required(ErrorMessage ="שדה חובה"), EmailAddress]
+		[Required(ErrorMessage ="שדה חובה")]
+		[EmailAddress(ErrorMessage = "כתובת לא חוקית")]
 		public string Email { get; set; }
 	}
 }

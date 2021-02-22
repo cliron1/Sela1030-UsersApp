@@ -6,15 +6,19 @@
 	<div>
 		<label asp-for="FirstName" style="width: 120px;">First Name:</label>
 		<input asp-for="FirstName" placeholder="First name" />
+		<span asp-validation-for="FirstName"></span>
 	</div>
 	<div>
 		<label asp-for="LastName" style="width: 120px;">Last Name:</label>
 		<input asp-for="LastName" placeholder="Enter yout last name" />
+		<span asp-validation-for="LastName"></span>
 	</div>
 	<div>
 		<label asp-for="Email" style="width: 120px;">Personal Email:</label>
 		<input asp-for="Email" type="email" placeholder="Email" />
+		<span asp-validation-for="Email"></span>
 	</div>
+
 	<div>
 		<button type="submit">Submit</button>
 	</div>

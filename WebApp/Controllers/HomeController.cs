@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using UsersApp.Models;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace UsersApp.Controllers {
 	[Route("main")]
@@ -53,7 +54,9 @@ namespace UsersApp.Controllers {
 
 		[HttpPost("/submit-signup")]
 		public IActionResult SignupSubmit(ContactModel model) {
-			return Ok(model);
+			//if(!ModelState.IsValid)
+			//	return BadRequest();
+			return View("/Views/Home/SignupPage.cshtml", model);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
