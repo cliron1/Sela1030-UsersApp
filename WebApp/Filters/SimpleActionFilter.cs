@@ -6,41 +6,37 @@ namespace WebApp.Filters {
 	public class SimpleActionFilter : ActionFilterAttribute {
 		private string path = @"C:\code\1030\logs\log.txt";
 
-		public override void OnActionExecuting(ActionExecutingContext filterContext) {
-			string actionName = filterContext.ActionDescriptor.RouteValues["action"];
-
-			using(FileStream fs = new FileStream(path, FileMode.Create)) {
+		private void log(string msg) {
+			var mode = File.Exists(path)
+				? FileMode.Append
+				: FileMode.Create;
+			using(FileStream fs = new FileStream(path, mode)) {
 				using(StreamWriter sw = new StreamWriter(fs)) {
-					sw.WriteLine(actionName + " started");
+					sw.WriteLine(msg);
 				}
 			}
+		}
+
+		public override void OnActionExecuting(ActionExecutingContext filterContext) {
+			if(File.Exists(path))
+				File.Delete(path);
+
+			string actionName = filterContext.ActionDescriptor.RouteValues["action"];
+			log(actionName + " started");
 		}
 
 		public override void OnActionExecuted(ActionExecutedContext filterContext) {
 			string actionName = filterContext.ActionDescriptor.RouteValues["action"];
-
-			using(FileStream fs = new FileStream(path, FileMode.Append)) {
-				using(StreamWriter sw = new StreamWriter(fs)) {
-					sw.WriteLine(actionName + " finished");
-				}
-			}
+			log(actionName + " finished");
 		}
 
 		public override void OnResultExecuting(ResultExecutingContext filterContext) {
-			using(FileStream fs = new FileStream(path, FileMode.Append)) {
-				using(StreamWriter sw = new StreamWriter(fs)) {
-					sw.WriteLine("OnResultExecuting");
-				}
-			}
+			log("OnResultExecuting");
 		}
 
 		public override void OnResultExecuted(ResultExecutedContext filterContext) {
-			ContentResult result = (ContentResult)filterContext.Result;
-			using(FileStream fs = new FileStream(path, FileMode.Append)) {
-				using(StreamWriter sw = new StreamWriter(fs)) {
-					sw.WriteLine("Result: " + result.Content);
-				}
-			}
+			var result = (ViewResult)filterContext.Result;
+			log("Result: " + result.ViewName);
 		}
 	}
 }
