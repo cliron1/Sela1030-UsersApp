@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using UsersApp.Models;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using WebApp.Filters;
 
 namespace UsersApp.Controllers {
 	[Route("main")]
@@ -14,6 +15,7 @@ namespace UsersApp.Controllers {
 		}
 
 		[HttpGet("/")]
+		[SimpleActionFilter]
 		public IActionResult Index() { // Action
 			return View();
 		}
