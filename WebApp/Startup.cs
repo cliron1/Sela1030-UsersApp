@@ -9,6 +9,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
+using System.Text.Json;
 using UsersApp.Services;
 using WebApp.DI;
 using WebApp.Middlewares;
@@ -32,8 +33,14 @@ namespace UsersApp {
 			services.AddScoped<IOperationScoped, Operation>();
 			services.AddTransient<IOperationTransient, Operation>();
 
-			services.AddControllersWithViews();
-			
+			services.AddControllersWithViews()
+				.AddJsonOptions(options => {
+					// Use null for Pascal casing.
+					options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+					options.JsonSerializerOptions.WriteIndented = true;
+				});
+			;
+
 			//services.Configure<CookiePolicyOptions>(options => {
 			//	options.CheckConsentNeeded = context => true;
 			//	options.MinimumSameSitePolicy = SameSiteMode.None;
