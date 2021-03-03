@@ -1,0 +1,14 @@
+﻿@*@{
+	TempData.Keep("msg");
+}
+<p>
+	Message from TempData["msg"]: /<b>@TempData.Peek("msg")</b>/
+</p>*@
+
+<p>
+	Message from TempData["msg"]: /<b>@TempData["msg"]</b>/
+</p>
+
+<p>
+	(Refresh the page to see that the message is gone)
+</p>

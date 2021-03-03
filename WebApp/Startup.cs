@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
 using UsersApp.Services;
 using WebApp.DI;
@@ -32,6 +33,16 @@ namespace UsersApp {
 			services.AddTransient<IOperationTransient, Operation>();
 
 			services.AddControllersWithViews();
+			
+			//services.Configure<CookiePolicyOptions>(options => {
+			//	options.CheckConsentNeeded = context => true;
+			//	options.MinimumSameSitePolicy = SameSiteMode.None;
+			//});
+
+			services.AddSession(options => {
+				options.IdleTimeout = TimeSpan.FromMinutes(20);
+				//options.Cookie.IsEssential = true;
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -48,6 +59,8 @@ namespace UsersApp {
 			),
 				RequestPath = "/node_modules"
 			});
+
+			app.UseSession();
 
 			app.UseMiddleware<DurationMiddleware>();
 			//app.UseMiddleware<DITestsMiddleware>();
