@@ -22,7 +22,8 @@
 	</p>
 
 	<p>
-		<button type="button" class="btn btn-outline-primary">Primary</button>
+		@await Html.PartialAsync("_MyBtn", new { text = "Primary", cls = "btn-primary" })
+		@await Html.PartialAsync("_MyBtn", new { text = "Primary", cls = "btn-outline-primary" })
 		<button type="button" class="btn btn-secondary">Secondary</button>
 		<button type="button" class="btn btn-success btn-lg">Success</button>
 		<button type="button" class="btn btn-danger">Danger</button>
