@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
@@ -12,7 +12,14 @@
 	</div>
 
 	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	@*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+	<p>
+		Learn about
+		<br />
+		<a asp-controller="Users" asp-action="Details" asp-route-id="2">Details of User #2 using tag-helper</a>
+		<br />
+		@Html.ActionLink("Details of User #2 using old syntax", "Details", "Users", new { id = 2 })
+	</p>
 
 	<p>
 		<button type="button" class="btn btn-outline-primary">Primary</button>
