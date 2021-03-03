@@ -31,6 +31,7 @@ namespace WebApi.Controllers {
 				return NotFound();
 			return Ok(item);
 		}
+
 		[HttpPost]
 		public IActionResult Add(User item) {
 			context.Users.Add(item);
@@ -38,7 +39,7 @@ namespace WebApi.Controllers {
 			return StatusCode(201);
 		}
 		[HttpPut("{id}")]
-		public IActionResult Add(int id, User item) {
+		public IActionResult Update(int id, User item) {
 			if(id <= 0)
 				return NotFound();
 			item.Id = id;

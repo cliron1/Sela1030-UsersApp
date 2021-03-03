@@ -26,12 +26,23 @@ namespace WebApi {
 			);
 
 			services.AddControllers();
+
+			services.AddCors(options => {
+				options.AddDefaultPolicy(
+					builder => {
+						builder.WithOrigins("http://localhost:5000")
+						.AllowAnyHeader()
+						.AllowAnyMethod();
+					});
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 			if(env.IsDevelopment()) {
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseCors();
 
 			app.UseRouting();
 
