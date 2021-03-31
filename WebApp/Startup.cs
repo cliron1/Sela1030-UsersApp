@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
+using System.Text.Json;
 using UsersApp.Services;
 using WebApp.DI;
 using WebApp.Middlewares;
@@ -31,7 +33,17 @@ namespace UsersApp {
 			services.AddScoped<IOperationScoped, Operation>();
 			services.AddTransient<IOperationTransient, Operation>();
 
-			services.AddControllersWithViews();
+			services
+				.AddControllersWithViews()
+				.AddJsonOptions(opts => {
+					opts.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+					opts.JsonSerializerOptions.WriteIndented = true;
+
+				});
+
+			services.AddSession(options => {
+				options.IdleTimeout = TimeSpan.FromSeconds(20);
+			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -52,6 +64,8 @@ namespace UsersApp {
 			app.UseMiddleware<DurationMiddleware>();
 			//app.UseMiddleware<DITestsMiddleware>();
 			app.UseDITests();
+
+			app.UseSession();
 
 			app.UseRouting();
 

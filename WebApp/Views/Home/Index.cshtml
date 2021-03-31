@@ -12,15 +12,23 @@
 	</div>
 
 	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	@*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+	<p>
+		Learn about
+		<br />
+		<a asp-controller="Users" asp-action="Details" asp-route-id="2">Details of User #2 using tag-helper</a>
+		<br />
+		@Html.ActionLink("Details of User #2 using old syntax", "Details", "Users", new { id = 2 })
+	</p>
 
 	<p>
-		<button type="button" class="btn btn-outline-primary">Primary</button>
-		<button type="button" class="btn btn-secondary">Secondary</button>
-		<button type="button" class="btn btn-success btn-lg">Success</button>
-		<button type="button" class="btn btn-danger">Danger</button>
-		<button type="button" class="btn btn-warning">Warning</button>
-		<button type="button" class="btn btn-info">Info</button>
+		@await Html.PartialAsync("_MyBtn", new { Text = "Primary", Class = "primary" })
+		@await Html.PartialAsync("_MyBtn", new { Text = "Secondary", Class = "secondary" })
+		@await Html.PartialAsync("_MyBtn", new { Text = "Danger", Class = "success" })
+		@await Html.PartialAsync("_MyBtn", new { Text = "Secondary", Class = "danger" })
+		@await Html.PartialAsync("_MyBtn", new { Text = "Warning", Class = "warning" })
+		@await Html.PartialAsync("_MyBtn", new { Text = "Info", Class = "info" })
+
 		<button type="button" class="btn btn-light">Light</button>
 		<button type="button" class="btn btn-dark">Dark</button>
 

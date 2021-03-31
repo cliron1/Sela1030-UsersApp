@@ -33,13 +33,13 @@ namespace WebApi.Controllers {
 		}
 
 		[HttpPost]
-		public IActionResult Add(User item) {
+		public IActionResult Add([FromBody]User item) {
 			context.Users.Add(item);
 			context.SaveChanges();
 			return StatusCode(201);
 		}
 		[HttpPut("{id}")]
-		public IActionResult Update(int id, User item) {
+		public IActionResult Update(int id, [FromBody] User item) {
 			if(id <= 0)
 				return NotFound();
 			item.Id = id;

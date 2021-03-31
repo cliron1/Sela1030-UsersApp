@@ -1,0 +1,20 @@
+﻿@model Person
+
+<h1>Option 1</h1>
+<form action="/person/get-name" method="post">
+	@Html.EditorForModel()
+	<input type="submit" value="Submit" />
+</form>
+
+<h1>Option 2</h1>
+<form method="post" asp-controller="Person" asp-action="GetName">
+	@Html.EditorForModel()
+	<input type="submit" value="Submit" />
+</form>
+
+
+<h1>Option 3</h1>
+@using(Html.BeginForm("GetName", "Person")) {
+	@Html.EditorForModel()
+	<input type="submit" value="Submit" />
+}

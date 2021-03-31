@@ -1,0 +1,7 @@
+﻿ul { list-style: none; }
+	ul li { padding: 0; }
+		ul li a { color: blue; }
+
+p {  color: blue;}
+
+a {  color: blue; }
